@@ -1,178 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <link
-            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons"
-            rel="stylesheet"
-        />
-        <link
-            href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css"
-            rel="stylesheet"
-        />
         <meta charset="UTF-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Compiled and minified CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
         />
-        <style>
-            .done {
-                text-decoration: line-through;
-            }
-            [v-cloak] {
-                display: none;
-            }
-        </style>
-        <title>Задачи</title>
+
+        <link rel="stylesheet" href="/index.css" />
+        <title>Список дел</title>
     </head>
     <body>
-        <div id="app" v-cloak>
-            <v-app :dark="isDark">
-                <v-toolbar color="blue darken-4" dark>
-                    <v-toolbar-side-icon></v-toolbar-side-icon>
-                    <v-toolbar-title class="headline"
-                        >Список дел</v-toolbar-title
-                    >
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Список дел</a>
 
-                    <v-spacer></v-spacer>
-
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on }">
-                            <v-btn icon @click="show = !show" v-on="on">
-                                <v-icon
-                                    v-model="isDark"
-                                    @click="isDark = !isDark"
-                                    >{{ show ? 'check_circle' :
-                                    'check_circle_outline' }}
-                                </v-icon>
-                            </v-btn>
-                        </template>
-                        <span>{{isDark ? 'Светлая тема' : 'Темная тема'}}</span>
-                    </v-tooltip>
-                </v-toolbar>
-                <v-container>
-                    <v-layout row justify-center>
-                        <v-flex xs12>
-                            <v-card>
-                                <v-list two-line subheader>
-                                    <v-container>
-                                        <v-subheader class="headline">
-                                            {{new Date() | date}}
-                                        </v-subheader>
-                                        <v-spacer></v-spacer>
-
-                                        <p class="text-xs-right">
-                                            <b>{{todos.length}}</b> Задач
-                                        </p>
-
-                                        <v-flex xs12>
-                                            <v-text-field
-                                                clearable
-                                                v-model="todoTitle"
-                                                id="newTodo"
-                                                name="newTodo"
-                                                label="Введите название задачи"
-                                                @keyup.enter="addTodo"
-                                                :dark="isDark"
-                                            >
-                                            </v-text-field>
-                                        </v-flex>
-                                    </v-container>
-                                    <v-subheader
-                                        class="subheading"
-                                        v-if="todos.length === 0"
-                                    >
-                                        У вас 0 задач, добавьте новую
-                                    </v-subheader>
-                                    <v-subheader class="subheading" v-else>
-                                        Ваши задачи
-                                    </v-subheader>
-                                    <div v-for="(todo, i) in todos" :key="i">
-                                        <v-list-tile avatar>
-                                            <v-list-tile-action>
-                                                <v-checkbox
-                                                    v-if="!todo.done"
-                                                    v-model="todo.done"
-                                                    :dark="isDark"
-                                                ></v-checkbox>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title
-                                                    :class="{done: todo.done}"
-                                                >
-                                                    {{todo.title | capitalize}}
-                                                </v-list-tile-title>
-                                                <v-list-tile-sub-title>
-                                                    Добавлено в: {{todo.date |
-                                                    date}}
-                                                </v-list-tile-sub-title>
-                                            </v-list-tile-content>
-                                            <v-btn
-                                                icon
-                                                ripple
-                                                color="red"
-                                                @click="removeTodo(todo.id)"
-                                            >
-                                                <v-icon class="white--text"
-                                                    >close</v-icon
-                                                >
-                                            </v-btn>
-                                        </v-list-tile>
-                                    </div>
-                                </v-list>
-                            </v-card>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-app>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <!-- <li><a href="/">Главная</a></li> -->
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div style="padding-top: 0.5rem" class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span id="card-title" class="card-title"
+                            >Загрузка ...</span
+                        >
+                        <p
+                            id="card-count"
+                            class="right-align"
+                            style="font-size: small"
+                        >
+                            0 задач
+                        </p>
+                        <div class="row">
+                            <form
+                                style="padding-left: 2rem; padding-right: 2rem"
+                                class=""
+                            >
+                                <div class="input-field">
+                                    <input
+                                        placeholder="Введите название задачи"
+                                        id="order_name"
+                                        type="text"
+                                        style="color: white"
+                                    />
+                                    <label
+                                        style="color: white; font-size: larger"
+                                        id="label_order_name"
+                                        for="order_name"
+                                    ></label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-action white-text">
+                        <p id="orders-title">У Вас 0 задач, добавьте новую</p>
+                        <div id="app">
+                            <div id="task-list">
+                                <!-- Этот блок будет использоваться для вывода списка задач -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
-        <script>
-            new Vue({
-                el: '#app',
-                data() {
-                    return {
-                        isDark: true,
-                        show: true,
-                        todoTitle: '',
-                        todos: [],
-                    }
-                },
-                methods: {
-                    addTodo() {
-                        const title = this.todoTitle.trim()
-                        if (!title) {
-                            return
-                        }
-                        this.todos.push({
-                            title: title,
-                            id: Math.random(),
-                            done: false,
-                            date: new Date(),
-                        })
-                        this.todoTitle = ''
-                    },
-                    removeTodo(id) {
-                        this.todos = this.todos.filter((t) => t.id !== id)
-                    },
-                },
-                filters: {
-                    capitalize(value) {
-                        return (
-                            value.toString().charAt(0).toUpperCase() +
-                            value.slice(1)
-                        )
-                    },
-                    date(value) {
-                        return new Intl.DateTimeFormat('ru-RU', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: '2-digit',
-                        }).format(new Date(value))
-                    },
-                },
-            })
-        </script>
     </body>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="module" src="/app.js"></script>
 </html>
