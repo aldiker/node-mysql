@@ -17,6 +17,7 @@ function updateTaskList(todos) {
         ordersTitleElement.textContent = 'У Вас 0 задач, добавьте новую'
     }
 
+    // Берем элемент, куда будем закидывать задачи
     const taskListElement = document.getElementById('task-list')
     // Очищаем предыдущий список задач
     taskListElement.innerHTML = ''
@@ -30,29 +31,37 @@ function updateTaskList(todos) {
 
         taskElement.innerHTML = `
             <p>ID: ${todo.id}</p>
-            <p>
-                <label>
-                    <input
-                        type="checkbox"
-                        class="filled-in"
-                        ${todo.done ? 'checked="checked"' : ''}
-                        id="${checkboxId}"
-                    />
-                    <span>${todo.done ? 'Завершено' : 'Не завершено'}</span>
-                </label>
-            </p>
-            <p class=${todo.done ? 'order-done' : ''}>${todo.title}</p>
-            <button 
-                class="btn waves-effect waves-light" 
-                name="delete" 
-                data-todo-id="${todo.id}"
-                id="${buttonDeleteId}"
-            >
-                Удалить
-            </button>
-            <p>${todo.date}</p>
+            <div class="task">
+                <div class="task-content">
+                    <p>
+                        <label>
+                            <input
+                                type="checkbox"
+                                class="filled-in"
+                                ${todo.done ? 'checked="checked"' : ''}
+                                id="${checkboxId}"
+                            />
+                            <span>${
+                                todo.done ? 'Завершено' : 'Не завершено'
+                            }</span>
+                        </label>
+                    </p>
+                    <p class=${todo.done ? 'order-done' : ''}>${todo.title}</p>
+                    <p>${todo.date}</p>
+                </div>
+                <button 
+                    class="btn waves-effect waves-light" 
+                    name="delete" 
+                    data-todo-id="${todo.id}"
+                    id="${buttonDeleteId}"
+                >
+                    Удалить
+                </button>
+            </div>
+            
             <br>
         `
+        // Добавляем сформированный <div> элемент в список задач
         taskListElement.appendChild(taskElement)
 
         // Добавляем слушатель событий для чекбокса

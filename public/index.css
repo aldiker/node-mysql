@@ -5,3 +5,23 @@
 .order-done {
     text-decoration: line-through;
 }
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+}
+
+.task-content p {
+    margin: 20px;
+}
+
+.btn {
+    margin-left: 10px;
+}
