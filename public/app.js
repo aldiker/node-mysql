@@ -5,11 +5,13 @@ function updateTaskList(todos) {
     // Длина массива задач
     const todosLenght = state.todos.length
 
+    // Отображаем количество введенных задач
     const cardCountElement = document.getElementById('card-count')
     cardCountElement.textContent = `${todosLenght} ${pluralizeTasks(
         todosLenght
     )}`
 
+    // Подбираем текст, который будем писать над задачами в зависимости от их количества
     const ordersTitleElement = document.getElementById('orders-title')
     if (todosLenght) {
         ordersTitleElement.textContent = 'Ваши задачи:'
@@ -81,7 +83,7 @@ function updateTaskList(todos) {
             updateTaskList(state.todos)
         })
 
-        // Добавляем слушатель событий для кнопки удалить
+        // Добавляем слушатель событий для кнопки "Удалить"
         const deleteButton = document.getElementById(buttonDeleteId)
         deleteButton.addEventListener('click', function () {
             // Берем индекс задачи, которую надо удалить
