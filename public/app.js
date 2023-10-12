@@ -1,5 +1,5 @@
 import { date, pluralizeTasks, capitalize } from './filters.js'
-import { addTodo } from './methods.js'
+import { addTodo, removeTodo } from './methods.js'
 
 function updateTaskList(todos) {
     // Длина массива задач
@@ -86,15 +86,10 @@ function updateTaskList(todos) {
         deleteButton.addEventListener('click', function () {
             // Берем индекс задачи, которую надо удалить
             const todoId = this.getAttribute('data-todo-id')
-            // Находим индекс задачи в массиве по todoId и удаляем ее
-            const todoIndex = state.todos.findIndex(
-                (t) => t.id.toString() === todoId.toString()
-            )
-            // Если нашли, то удаляем один элемент начиная с найденного индекса
-            if (todoIndex !== -1) {
-                state.todos.splice(todoIndex, 1)
-            }
-            // После удаления задачи, обновляем отображение списка задач
+            // Вызываем метод "removeTodo" передавая контекст "state" и значение для метода "todoId"
+            removeTodo.call(state, todoId)
+
+            // Обновляем таблицу
             updateTaskList(state.todos)
         })
     })

@@ -12,5 +12,5 @@ export function addTodo(title) {
 }
 
 export function removeTodo(id) {
-    this.todos = this.todos.filter((t) => t.id !== id)
+    this.todos = this.todos.filter((t) => t.id.toString() !== id.toString())
 }
