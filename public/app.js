@@ -30,25 +30,33 @@ function updateTaskList(todos) {
         const buttonDeleteId = `btn-delete-${index}`
 
         taskElement.innerHTML = `
-            <p>ID: ${todo.id}</p>
             <div class="task">
-                <div class="task-content">
-                    <p>
-                        <label>
-                            <input
-                                type="checkbox"
-                                class="filled-in"
-                                ${todo.done ? 'checked="checked"' : ''}
-                                id="${checkboxId}"
-                            />
-                            <span>${
-                                todo.done ? 'Завершено' : 'Не завершено'
-                            }</span>
-                        </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        class="filled-in"
+                        ${todo.done ? 'checked="checked"' : ''}
+                        id="${checkboxId}"
+                    />
+                    <span></span>
+                </label>
+
+                <div class="task-details">
+                    <p 
+                        class="${todo.done ? 'order-done' : ''}"
+                        style="font-size: 16px"
+                        >
+                            ${todo.title}
                     </p>
-                    <p class=${todo.done ? 'order-done' : ''}>${todo.title}</p>
-                    <p>${todo.date}</p>
+                    <p 
+                        class="task-date" 
+                        style="font-size: 10px"
+                        >
+                            ${todo.date}
+                    </p>
                 </div>
+
                 <button 
                     class="btn waves-effect waves-light" 
                     name="delete" 
