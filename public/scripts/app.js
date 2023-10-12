@@ -60,12 +60,12 @@ function updateTaskList(todos) {
                 </div>
 
                 <button 
-                    class="btn waves-effect waves-light" 
+                    class="btn-floating btn waves-effect waves-light blue-grey darken-3"
                     name="delete" 
                     data-todo-id="${todo.id}"
                     id="${buttonDeleteId}"
-                >
-                    Удалить
+                    >
+                        <i class="material-icons">close</i>
                 </button>
             </div>
             
