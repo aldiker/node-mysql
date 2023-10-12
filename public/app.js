@@ -120,13 +120,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
-    const form = document.querySelector('form') // Найдите вашу форму по селектору
+    // Найдите вашу форму по селектору
+    const form = document.querySelector('form')
     form.addEventListener('submit', function (event) {
         // Предотвращаем стандартное действие отправки формы
         event.preventDefault()
 
         // Здесь можно выполнить ваш код для добавления задачи (addTodo)
-        addTodo.call(state, orderNameInput.value)
+        addTodo.call(state, capitalize(orderNameInput.value))
 
         // Очищаем поле ввода
         orderNameInput.value = ''
