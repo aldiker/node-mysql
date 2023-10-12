@@ -52,8 +52,8 @@ function updateTaskList(todos) {
                     <p 
                         class="task-date" 
                         style="font-size: 10px"
-                        >
-                            ${todo.date}
+                        > 
+                            Добавлено в: ${date(todo.date)}
                     </p>
                 </div>
 
