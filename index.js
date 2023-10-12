@@ -6,8 +6,12 @@ const PORT = process.nextTick.PORT || 3000
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+// app.use((req, res, next) => {
+//     res.sendFile('/index.html')
+// })
+
 app.use((req, res, next) => {
-    res.sendFile('/index.html')
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 app.listen(PORT, () => {
