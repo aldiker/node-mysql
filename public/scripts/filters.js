@@ -15,11 +15,12 @@ export function date(inputDate = new Date(), withTime = false) {
         options.second = '2-digit'
     }
 
+    // Проверяем получили ли мы дату или NAN в случае, если на входе была не дата
     if (!isNaN(inputDateToDate.getTime())) {
-        // Это допустимая дата, теперь вы можете использовать createdAtDate
+        // Это допустимая дата - форматируем
         return new Intl.DateTimeFormat('ru-RU', options).format(inputDateToDate)
     } else {
-        // inputDate не является допустимой датой, обрабатывайте эту ситуацию
+        // inputDate не является допустимой датой - выводим ошибку
         console.error('Недопустимая дата:', inputDate)
     }
 }
