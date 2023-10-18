@@ -103,20 +103,20 @@ const state = {
     todos: [],
 }
 
-// Получаем данные с БД через API GET-запрос
-fetch('/api/todo', {
-    method: 'get',
-})
-    .then((res) => res.json())
-    .then((todos) => {
-        console.log(todos)
-        state.todos = todos
-        updateTaskList(state.todos)
-    })
-    .catch((e) => console.log(e))
-
 // Запускаем обработчик события, когда загрузилось полностью DOM
 document.addEventListener('DOMContentLoaded', function () {
+    // Получаем данные с БД через API GET-запрос
+    fetch('/api/todo', {
+        method: 'get',
+    })
+        .then((res) => res.json())
+        .then((todos) => {
+            console.log(todos)
+            state.todos = todos
+            updateTaskList(state.todos)
+        })
+        .catch((e) => console.log(e))
+
     const cardTitle = document.getElementById('card-title')
     cardTitle.textContent = date()
 
