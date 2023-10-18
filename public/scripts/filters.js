@@ -2,12 +2,26 @@ export function capitalize(value) {
     return value.toString().charAt(0).toUpperCase() + value.slice(1)
 }
 
-export function date() {
-    return new Intl.DateTimeFormat('ru-RU', {
+export function date(inputDate = new Date(), withTime = false) {
+    const inputDateToDate = new Date(inputDate)
+    const options = {
         year: 'numeric',
         month: 'long',
         day: '2-digit',
-    }).format(new Date())
+    }
+    if (withTime) {
+        options.hour = '2-digit'
+        options.minute = '2-digit'
+        options.second = '2-digit'
+    }
+
+    if (!isNaN(inputDateToDate.getTime())) {
+        // Это допустимая дата, теперь вы можете использовать createdAtDate
+        return new Intl.DateTimeFormat('ru-RU', options).format(inputDateToDate)
+    } else {
+        // inputDate не является допустимой датой, обрабатывайте эту ситуацию
+        console.error('Недопустимая дата:', inputDate)
+    }
 }
 
 export function pluralizeTasks(count) {

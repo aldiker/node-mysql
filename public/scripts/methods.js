@@ -1,14 +1,8 @@
-export function addTodo(title) {
+export function addTodo(title, successCallback) {
     const order_title = title.trim()
     if (!order_title) {
         return
     }
-    // this.todos.push({
-    //     title: order_title,
-    //     id: Math.random(),
-    //     done: false,
-    //     date: new Date(),
-    // })
 
     fetch('/api/todo', {
         method: 'post',
@@ -19,6 +13,7 @@ export function addTodo(title) {
         .then(({ todo }) => {
             console.log(todo)
             this.todos.push(todo)
+            successCallback()
         })
 }
 

@@ -55,7 +55,8 @@ function updateTaskList(todos) {
                         class="task-date" 
                         style="font-size: 10px"
                         > 
-                            Добавлено в: ${date(todo.date)}
+                            Добавлено в: ${date(todo.createdAt, true)}
+                            (изменено в: ${date(todo.updatedAt, true)})
                     </p>
                 </div>
 
@@ -123,15 +124,15 @@ document.addEventListener('DOMContentLoaded', function () {
         // Предотвращаем стандартное действие отправки формы
         event.preventDefault()
 
-        // Здесь можно выполнить ваш код для добавления задачи (addTodo)
-        addTodo.call(state, capitalize(orderNameInput.value))
+        // Добавление задачи (addTodo)
+        addTodo.call(state, capitalize(orderNameInput.value), () => {
+            // Обновляем содержимое элемента "task-list" на странице
+            updateTaskList(state.todos)
 
-        // Очищаем поле ввода
-        orderNameInput.value = ''
-        // Восстанавливаем текст label
-        labelOrderName.textContent = ''
-
-        // Обновляем содержимое элемента "task-list" на странице
-        updateTaskList(state.todos)
+            // Очищаем поле ввода
+            orderNameInput.value = ''
+            // Восстанавливаем текст label
+            labelOrderName.textContent = ''
+        })
     })
 })
