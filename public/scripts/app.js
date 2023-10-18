@@ -1,5 +1,5 @@
 import { date, pluralizeTasks, capitalize } from './filters.js'
-import { addTodo, removeTodo } from './methods.js'
+import { addTodo, removeTodo, completeTodo } from './methods.js'
 
 function updateTaskList(todos) {
     // Длина массива задач
@@ -82,6 +82,12 @@ function updateTaskList(todos) {
             todo.done = event.target.checked
             // Вызываем функцию обновления списка задач после изменения
             updateTaskList(state.todos)
+
+            // Вызываем функцию completeTodo и передаем в неё id
+            console.log(
+                `! - checkbox: todo.id = ${todo.id}, todo.done = ${todo.done}`
+            )
+            completeTodo(todo.id, todo.done)
         })
 
         // Добавляем слушатель событий для кнопки "Удалить"
