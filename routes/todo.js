@@ -35,12 +35,8 @@ router.post('/', async (req, res) => {
 // Изменение состояния определенной задачи
 // Нажатие на чекбокс - задача выполнена/невыполнена
 router.put('/:id', async (req, res) => {
-    console.log(`! - put: req.params.id = ${req.params.id}`)
-
     try {
         const todo = await Todo.findByPk(+req.params.id)
-
-        console.log(`! - put: todo = ${todo}`)
 
         todo.done = req.body.done
         await todo.save()

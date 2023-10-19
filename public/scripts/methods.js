@@ -22,7 +22,7 @@ export function removeTodo(id) {
     this.todos = this.todos.filter((t) => t.id.toString() !== id.toString())
 }
 
-export function completeTodo(id, done) {
+export function completeTodo(id, done, successCallback) {
     console.log(`! - completeTodo: id = ${id}`)
 
     fetch('/api/todo/' + id, {
@@ -33,6 +33,7 @@ export function completeTodo(id, done) {
         .then((res) => res.json())
         .then(({ todo }) => {
             console.log(todo)
+            successCallback(todo)
         })
         .catch((e) => console.log(e))
 }

@@ -48,12 +48,14 @@ function updateTaskList(todos) {
                     <p 
                         class="${todo.done ? 'order-done' : ''}"
                         style="font-size: 16px"
+                        id="todoTitle-${todo.id}"
                         >
                             ${todo.title}
                     </p>
                     <p 
                         class="task-date" 
                         style="font-size: 10px"
+                        id="updatedAt-${todo.id}"
                         > 
                             Добавлено в: ${date(todo.createdAt, true)}
                             (изменено в: ${date(todo.updatedAt, true)})
@@ -80,14 +82,36 @@ function updateTaskList(todos) {
         checkbox.addEventListener('change', (event) => {
             // Обновляем значение todo.done в соответствии с состоянием чекбокса
             todo.done = event.target.checked
-            // Вызываем функцию обновления списка задач после изменения
-            updateTaskList(state.todos)
 
             // Вызываем функцию completeTodo и передаем в неё id
             console.log(
                 `! - checkbox: todo.id = ${todo.id}, todo.done = ${todo.done}`
             )
-            completeTodo(todo.id, todo.done)
+
+            completeTodo(todo.id, todo.done, (updatedTodo) => {
+                // Этот код будет выполнен после успешного обновления
+
+                console.log('Элемент из колбека "updatedTodo":')
+                console.log(updatedTodo)
+
+                // Меняем текст с измененной датой
+                const updatedDateElement = document.getElementById(
+                    `updatedAt-${updatedTodo.id}`
+                )
+                updatedDateElement.textContent = `
+                    Добавлено в: ${date(updatedTodo.createdAt, true)}
+                    (изменено в: ${date(updatedTodo.updatedAt, true)})
+                    `
+
+                // Зачеркиваем и нет текст с названием задачи
+                const todoTitleElement = document.getElementById(
+                    `todoTitle-${updatedTodo.id}`
+                )
+                if (todoTitleElement) {
+                    if (todo.done) todoTitleElement.classList.add('order-done')
+                    else todoTitleElement.classList.remove('order-done')
+                }
+            })
         })
 
         // Добавляем слушатель событий для кнопки "Удалить"
