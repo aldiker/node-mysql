@@ -18,8 +18,22 @@ export function addTodo(title, successCallback) {
         .catch((e) => console.log(e))
 }
 
-export function removeTodo(id) {
-    this.todos = this.todos.filter((t) => t.id.toString() !== id.toString())
+export function removeTodo(id, successCallback) {
+    console.log(`! - removeTodo: id = ${id}`)
+
+    // Вызываем API DELETE
+    fetch('/api/todo/' + id, {
+        method: 'delete',
+    })
+        .then(() => {
+            console.log(`! - removeTodo: fetch.then`)
+            // Удаляем элемент из внутренней таблицы "state.todos"
+            this.todos = this.todos.filter(
+                (t) => t.id.toString() !== id.toString()
+            )
+            successCallback()
+        })
+        .catch((e) => console.log(e))
 }
 
 export function completeTodo(id, done, successCallback) {

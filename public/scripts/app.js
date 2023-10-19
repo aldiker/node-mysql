@@ -1,6 +1,11 @@
 import { date, pluralizeTasks, capitalize } from './filters.js'
 import { addTodo, removeTodo, completeTodo } from './methods.js'
 
+const state = {
+    show: true,
+    todos: [],
+}
+
 function updateTaskList(todos) {
     // Длина массива задач
     const todosLenght = state.todos.length
@@ -120,17 +125,12 @@ function updateTaskList(todos) {
             // Берем индекс задачи, которую надо удалить
             const todoId = this.getAttribute('data-todo-id')
             // Вызываем метод "removeTodo" передавая контекст "state" и значение для метода "todoId"
-            removeTodo.call(state, todoId)
-
-            // Обновляем таблицу
-            updateTaskList(state.todos)
+            removeTodo.call(state, todoId, () => {
+                // Обновляем таблицу
+                updateTaskList(state.todos)
+            })
         })
     })
-}
-
-const state = {
-    show: true,
-    todos: [],
 }
 
 // Запускаем обработчик события, когда загрузилось полностью DOM
